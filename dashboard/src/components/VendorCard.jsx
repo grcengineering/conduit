@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import PropTypes from 'prop-types'
 import { AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -157,6 +158,25 @@ function VendorCard({ vendor, onClick }) {
       </Card>
     </motion.div>
   )
+}
+
+VendorCard.propTypes = {
+  vendor: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    criticality: PropTypes.oneOf(['critical', 'high', 'medium', 'low']).isRequired,
+    riskScore: PropTypes.number.isRequired,
+    controls: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        passed: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+        percentage: PropTypes.number.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
+  onClick: PropTypes.func,
 }
 
 export default VendorCard

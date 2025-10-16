@@ -8,8 +8,8 @@
  * Features:
  * - Dashboard statistics (vendors, controls, compliance, risks)
  * - Multiple view modes (Vendor-Control, Supply-Chain, Risk-Control)
+ * - Interactive Plotly graph visualizations with 3 view modes
  * - Interactive vendor cards with compliance details
- * - Graph visualization placeholder (to be connected with Plotly)
  */
 import { useState } from 'react'
 import { motion } from 'framer-motion'
@@ -18,6 +18,7 @@ import { mockEvidence } from '@/data/mockData.js'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import StatsCard from '@/components/StatsCard'
 import VendorCard from '@/components/VendorCard'
+import ComplianceGraph from '@/components/ComplianceGraph'
 import './App.css'
 
 function App() {
@@ -57,6 +58,19 @@ function App() {
   const handleVendorClick = (vendor) => {
     console.log('Vendor clicked:', vendor)
     // Future: Open dialog with detailed vendor information
+  }
+
+  /**
+   * Handle node click in the compliance graph
+   * This is called when users click on vendors, controls, or risks in the graph
+   */
+  const handleNodeClick = (nodeId, nodeType) => {
+    console.log(`${nodeType} node clicked:`, nodeId)
+    // Future: Open detailed view based on node type
+    if (nodeType === 'vendor') {
+      const vendor = mockEvidence.vendors.find(v => v.id === nodeId)
+      if (vendor) handleVendorClick(vendor)
+    }
   }
 
   return (
@@ -110,8 +124,8 @@ function App() {
             variant="default"
           />
           <StatsCard
-            value={`${avgCompliance}%`}
-            label="Avg Compliance"
+            value={parseFloat(avgCompliance)}
+            label="Avg Compliance (%)"
             icon={TrendingUp}
             variant="success"
           />
@@ -137,43 +151,51 @@ function App() {
             <TabsTrigger value="risk-control">Risk-Control</TabsTrigger>
           </TabsList>
 
-          {/* Tab Content - Graph Placeholder */}
+          {/* Tab Content - Vendor-Control Graph */}
           <TabsContent value="vendor-control" className="mt-6">
             <div
               id="graph-container"
-              className="bg-white rounded-lg border border-gray-200 shadow-sm p-8 min-h-[500px] flex items-center justify-center"
+              className="bg-white rounded-lg border border-gray-200 shadow-sm p-8 min-h-[500px]"
             >
-              <div className="text-center text-gray-500">
-                <Shield className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                <p className="text-lg font-medium">Vendor-Control Graph</p>
-                <p className="text-sm mt-2">Plotly visualization will be rendered here</p>
-              </div>
+              <ComplianceGraph
+                viewMode="vendor-control"
+                vendors={mockEvidence.vendors}
+                controls={mockEvidence.controls}
+                risks={mockEvidence.risks}
+                onNodeClick={handleNodeClick}
+              />
             </div>
           </TabsContent>
 
+          {/* Tab Content - Supply-Chain Graph */}
           <TabsContent value="supply-chain" className="mt-6">
             <div
               id="graph-container"
-              className="bg-white rounded-lg border border-gray-200 shadow-sm p-8 min-h-[500px] flex items-center justify-center"
+              className="bg-white rounded-lg border border-gray-200 shadow-sm p-8 min-h-[500px]"
             >
-              <div className="text-center text-gray-500">
-                <Users className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                <p className="text-lg font-medium">Supply-Chain Graph</p>
-                <p className="text-sm mt-2">Plotly visualization will be rendered here</p>
-              </div>
+              <ComplianceGraph
+                viewMode="supply-chain"
+                vendors={mockEvidence.vendors}
+                controls={mockEvidence.controls}
+                risks={mockEvidence.risks}
+                onNodeClick={handleNodeClick}
+              />
             </div>
           </TabsContent>
 
+          {/* Tab Content - Risk-Control Graph */}
           <TabsContent value="risk-control" className="mt-6">
             <div
               id="graph-container"
-              className="bg-white rounded-lg border border-gray-200 shadow-sm p-8 min-h-[500px] flex items-center justify-center"
+              className="bg-white rounded-lg border border-gray-200 shadow-sm p-8 min-h-[500px]"
             >
-              <div className="text-center text-gray-500">
-                <AlertTriangle className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                <p className="text-lg font-medium">Risk-Control Graph</p>
-                <p className="text-sm mt-2">Plotly visualization will be rendered here</p>
-              </div>
+              <ComplianceGraph
+                viewMode="risk-control"
+                vendors={mockEvidence.vendors}
+                controls={mockEvidence.controls}
+                risks={mockEvidence.risks}
+                onNodeClick={handleNodeClick}
+              />
             </div>
           </TabsContent>
         </Tabs>
