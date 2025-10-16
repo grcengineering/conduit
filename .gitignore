@@ -38,3 +38,7 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+# Dashboard (React + Vite)
+dashboard/dist/
+dashboard/node_modules/

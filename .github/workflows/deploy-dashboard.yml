@@ -1,0 +1,70 @@
+name: Deploy CONDUIT Dashboard
+
+on:
+  # Trigger deployment on push to main when dashboard files change
+  push:
+    branches:
+      - main
+    paths:
+      - 'dashboard/**'
+
+  # Allow manual deployment trigger
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Node.js 20 with npm cache
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: dashboard/package-lock.json
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        working-directory: dashboard
+        run: npm ci
+
+      # Step 4: Build the dashboard
+      - name: Build dashboard
+        working-directory: dashboard
+        run: npm run build
+
+      # Step 5: Setup Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # Step 6: Upload artifact from dashboard/dist
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dashboard/dist'
+
+      # Step 7: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
