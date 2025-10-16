@@ -1,12 +1,17 @@
 # CONDUIT - Claude AI Instructions
 
-**Last Updated:** October 16, 2025
+**Last Updated:** October 17, 2025
 **Repository:** grcengineering/conduit
-**Status:** Phase 1 - Building 3 starter evidence schemas
+**Status:** Phase 1 Complete (3 evidence schemas) + Phase 5 In Progress (React Dashboard)
 
 ## Project Overview
 
 CONDUIT is an evidence exchange protocol for ASSURE TPRM (Third-Party Risk Management). It solves the problem of vendors answering the same security questions 50+ times by creating standardized, machine-readable evidence packages.
+
+### Three AI Processing Layers:
+1. **Extraction Layer** (Claude API) - Transforms unstructured vendor docs into 24 standardized evidence types
+2. **Validation Layer** (Pydantic) - Schema validation + percentage-based compliance scoring
+3. **Gap Analysis Layer** (Claude + Domain Knowledge) - SOC 2 overlap detection + risk prioritization
 
 ## Core Concepts
 

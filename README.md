@@ -21,19 +21,94 @@ Vendors answer the same security questions **50+ times** for different customers
 **Vendors publish ONCE** in standardized CONDUIT format (24 evidence types).
 **All customers consume automatically** - no more repetitive questionnaires.
 
+### How It Works: AI-Powered Document Transformation
+
 ```
-Vendor publishes 24 evidence types (CONDUIT format)
-           │
-           ├──→ Customer A consumes automatically
-           ├──→ Customer B consumes automatically
-           └──→ Customer C consumes automatically
+┌─────────────────────────────────────────────────────────────┐
+│  📄 INPUT: Vendor Documents (Unstructured)                  │
+│  ├─ SOC 2 Type II Report (150 pages)                        │
+│  ├─ ISO 27001 Certificate                                   │
+│  ├─ Policies & Test Results                                 │
+│  └─ Security Questionnaires                                 │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  🤖 AI LAYER 1: Extraction (Claude API)                     │
+│  • Multi-document synthesis                                 │
+│  • Extracts 24 standardized evidence types                  │
+│  • Confidence scoring (0.0-1.0)                             │
+│  • Source attribution (doc + page refs)                     │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  🛡️ AI LAYER 2: Validation (Pydantic Schemas)               │
+│  • Schema validation (required fields, types)               │
+│  • Business logic checks (date recency, SLAs)               │
+│  • Percentage-based compliance scoring                      │
+│  • Pass/fail per requirement                                │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  📊 AI LAYER 3: Gap Analysis (Claude + Domain Knowledge)    │
+│  • SOC 2 overlap detection                                  │
+│  • Missing evidence identification                          │
+│  • Risk prioritization                                      │
+│  • Remediation guidance                                     │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  📦 OUTPUT: CONDUIT Evidence Package (Structured)           │
+│  ├─ 24 JSON evidence files (standardized)                   │
+│  ├─ Compliance scores (percentage-based)                    │
+│  ├─ Gap analysis report                                     │
+│  ├─ Risk register with remediation steps                    │
+│  └─ Interactive dashboard visualization                     │
+└─────────────────────────────────────────────────────────────┘
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+  Customer A        Customer B        Customer C
+
+  All consume the SAME validated evidence package
+  No questionnaires, no vendor fatigue, no inconsistencies
+```
+
+### Example: BCP/DR Testing Evidence
+
+```
+AI extracts from vendor docs:
+├─ Test Date: 2025-08-15
+├─ Test Result: Partial Pass (RTO exceeded by 2h)
+├─ Test Type: Partial Failover
+└─ Scope: Production DB & app servers
+
+Compliance Scoring (3 requirements):
+├─ ✓ Test within 12 months: PASS (1/3)
+├─ ✗ Test result successful: FAIL (1/3)  ← RTO not met
+└─ ✓ Scope documented: PASS (2/3)
+
+Compliance: 66.7% → PARTIALLY_COMPLIANT ⚠️
+
+Risk Analysis:
+• Service disruption if DR fails
+• Customer availability SLA at risk (RTO: 4h target, 6h actual)
+
+Remediation:
+1. Re-test BCP/DR within 30 days
+2. Investigate why RTO exceeded by 2 hours
+3. Update DR runbook to meet 4-hour RTO
 ```
 
 **Benefits:**
-- ✅ Vendor publishes once
+- ✅ Vendor publishes once (saves 650 hours/year)
 - ✅ Standardized format (24 ASSURE evidence types)
-- ✅ Machine-readable & LLM-validated
+- ✅ AI-validated with confidence scores
 - ✅ SOC 2 gap analysis built-in
+- ✅ Percentage-based compliance (transparent metrics)
 
 ---
 
