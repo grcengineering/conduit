@@ -139,15 +139,15 @@ function VendorDialog({ vendor, open, onOpenChange }) {
                   <p className="text-xs font-semibold text-gray-700 uppercase">Requirements:</p>
                   {control.requirements?.map((req, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-sm">
-                      <span className={`${req.status === 'passed' ? 'text-green-600' : 'text-red-600'} font-bold flex-shrink-0`}>
-                        {req.status === 'passed' ? '✓' : '✗'}
+                      <span className={`${req.passed ? 'text-green-600' : 'text-red-600'} font-bold flex-shrink-0`}>
+                        {req.passed ? '✓' : '✗'}
                       </span>
                       <div className="flex-1">
-                        <p className={`font-medium ${req.status === 'passed' ? 'text-gray-700' : 'text-gray-900'}`}>
+                        <p className={`font-medium ${req.passed ? 'text-gray-700' : 'text-gray-900'}`}>
                           {req.name}
                         </p>
-                        {req.evidence && (
-                          <p className="text-xs text-gray-600 mt-0.5">{req.evidence}</p>
+                        {req.detail && (
+                          <p className="text-xs text-gray-600 mt-0.5">{req.detail}</p>
                         )}
                       </div>
                     </div>
