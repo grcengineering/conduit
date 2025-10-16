@@ -1,0 +1,53 @@
+[project]
+name = "conduit"
+version = "0.1.0"
+description = "Evidence exchange protocol for ASSURE TPRM"
+authors = [{name = "GRC Engineering", email = "hello@grcengineering.com"}]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+dependencies = [
+    "pydantic>=2.0",
+    "anthropic>=0.40",
+    "typer[all]>=0.12",
+    "rich>=13.0",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.8",
+    "pytest>=8.0",
+    "mypy>=1.0",
+]
+
+[project.scripts]
+conduit = "conduit.cli:app"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.scripts]
+lint = "ruff check src/"
+format = "ruff format src/"
+test = "pytest tests/ -v"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "ANN", "S", "B", "A", "COM", "DTZ", "ISC", "ICN", "PIE", "PT", "Q", "RSE", "RET", "SIM", "TID", "ARG", "PTH", "PD", "PGH", "PL", "TRY", "FLY", "PERF", "RUF"]
+ignore = ["ANN101", "ANN102", "COM812", "ISC001"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
