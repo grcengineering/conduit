@@ -785,15 +785,15 @@ const ComplianceGraph = ({
     // X-axis configuration
     xaxis: {
       visible: false,        // Hide axis line and labels
-      range: [-50, 550],     // Fixed range - prevents zooming
-      fixedrange: true       // Disable zoom/pan on this axis
+      range: [-50, 550],     // Initial range
+      fixedrange: false      // Enable zoom/pan on this axis
     },
 
     // Y-axis configuration
     yaxis: {
       visible: false,
       range: [-50, 550],
-      fixedrange: true
+      fixedrange: false      // Enable zoom/pan on this axis
     },
 
     // Margins around the plot
@@ -820,15 +820,9 @@ const ComplianceGraph = ({
   const config = {
     displayModeBar: true,              // Show the toolbar
     displaylogo: false,                // Hide Plotly logo (cleaner look)
-    modeBarButtonsToRemove: [          // Remove buttons we don't need
-      'zoom2d',
-      'pan2d',
+    modeBarButtonsToRemove: [          // Remove only unnecessary buttons
       'select2d',
-      'lasso2d',
-      'zoomIn2d',
-      'zoomOut2d',
-      'autoScale2d',
-      'resetScale2d'
+      'lasso2d'
     ],
     responsive: true                   // Resize with container
   };
