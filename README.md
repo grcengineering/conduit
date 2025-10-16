@@ -8,13 +8,60 @@
 
 ---
 
-## The Problem
+## The Problem with Traditional TPRM
 
-Vendors answer the same security questions **50+ times** for different customers:
-- ❌ Repetitive work
-- ❌ Inconsistent answers
-- ❌ No standardization
-- ❌ Hard to validate
+### Today's Broken Workflow
+
+```
+Customer A sends 200-question security questionnaire
+                    ↓
+        Vendor fills it out (8-12 hours)
+                    ↓
+    Customer A manually reviews answers (4-6 hours)
+                    ↓
+        Customer A asks follow-up questions
+                    ↓
+            Vendor responds again
+                    ↓
+Customer A creates risk assessment in their GRC tool
+```
+
+**Then the cycle repeats for Customer B, C, D... 50+ times per year!**
+
+### Key Problems with Traditional TPRM:
+
+| Problem | Impact | Annual Cost (per vendor) |
+|---------|--------|--------------------------|
+| **Vendor Fatigue** | Same questions answered 50+ times | 400-600 hours ($40K-60K) |
+| **Inconsistency** | Different answers to same question across customers | High risk exposure |
+| **No Standardization** | Every customer has unique questionnaire format | Can't automate |
+| **Manual Processing** | Humans read 150-page SOC 2 reports | 13 hours per review |
+| **Stale Data** | Annual reviews mean 11 months of outdated info | False sense of security |
+| **No Validation** | "We encrypt data" - but how? Is it current? | Trust but don't verify |
+| **Evidence Hunting** | Evidence scattered across multiple documents | Hard to audit |
+| **SOC 2 Gaps** | SOC 2 doesn't cover critical TPRM requirements | Missing risk areas |
+
+### Real-World Example: Acme SaaS
+
+```
+Acme SaaS has 50 enterprise customers.
+
+Traditional TPRM (per year):
+├─ 50 security questionnaires to complete
+├─ Each takes 8-12 hours (includes: research, write, review, submit)
+├─ Follow-up questions: +2 hours per customer
+├─ Total: 500-700 hours/year
+├─ Cost: $50,000-70,000 in security team time
+└─ Result: Still get inconsistent answers, customer complaints
+
+Customer Side (each):
+├─ Review 200 vendor responses manually (4-6 hours)
+├─ Read SOC 2 report for gaps (3-4 hours)
+├─ Create risk assessment in GRC tool (2 hours)
+├─ Follow-up questions (2 hours)
+├─ Total: 11-16 hours per vendor review
+└─ Result: Outdated by the time assessment is done
+```
 
 ## The CONDUIT Solution
 
@@ -109,6 +156,144 @@ Remediation:
 - ✅ AI-validated with confidence scores
 - ✅ SOC 2 gap analysis built-in
 - ✅ Percentage-based compliance (transparent metrics)
+
+---
+
+## CONDUIT vs Traditional TPRM: Side-by-Side
+
+### For Vendors (Publishers)
+
+| Traditional TPRM | CONDUIT |
+|------------------|---------|
+| Fill out 50+ unique security questionnaires | Publish **1 standardized evidence package** |
+| 8-12 hours per questionnaire | **1 hour** to upload docs + review AI extraction |
+| Inconsistent answers across customers | **100% consistent** - same evidence for all |
+| Manual copy/paste from SOC 2 report | AI **automatically extracts** from your docs |
+| No validation until customer reviews | **Instant validation** via Pydantic schemas |
+| Customer asks "Is this still current?" | **Timestamp + confidence score** on every field |
+| Evidence scattered across email threads | **All evidence in one package** with source attribution |
+| 500-700 hours/year total | **50 hours/year** (92% time savings) |
+| **$50K-70K annual cost** | **~$6K annual cost** (91% cost savings) |
+
+### For Customers (Consumers)
+
+| Traditional TPRM | CONDUIT |
+|------------------|---------|
+| Send 200-question security questionnaire | **Download vendor's CONDUIT package** |
+| Wait 2-4 weeks for vendor response | **Instant access** to latest evidence |
+| Manually review 200 text answers | **Interactive dashboard** with pass/fail status |
+| Read 150-page SOC 2 report manually | AI **pre-digested** evidence with page refs |
+| Guess which SOC 2 sections apply | **Automatic SOC 2 gap analysis** |
+| "They say they encrypt data" (trust?) | **Exact evidence**: "AES-256, soc2_report.pdf p.34" |
+| Create risk assessment from scratch | **Auto-generated risk register** with remediation steps |
+| Compliance status: ❓ Unknown | **Compliance score: 66.7%** (2/3 requirements passed) |
+| Annual review (stale data 11 months/year) | **Continuous monitoring** with expiry alerts |
+| 11-16 hours per vendor review | **30 minutes** per vendor (97% time savings) |
+| No comparison across vendors | **Standardized metrics** enable vendor comparison |
+
+### Key Differentiators: What CONDUIT Solves
+
+#### 1. **Standardization** (The SBOM Moment for TPRM)
+```
+Traditional TPRM:
+└─ Every customer invents their own questionnaire format
+   └─ Result: Impossible to automate, compare, or validate
+
+CONDUIT:
+└─ 24 standardized evidence types (ASSURE framework)
+   └─ Result: Machine-readable, automatable, comparable across vendors
+```
+
+#### 2. **Evidence-Based (Not Survey-Based)**
+```
+Traditional TPRM:
+└─ Customer: "Do you test BCP/DR annually?"
+   └─ Vendor: "Yes" (no evidence required)
+      └─ Result: Trust but don't verify
+
+CONDUIT:
+└─ CONDUIT Package requires:
+   ├─ test_date: "2025-08-15"
+   ├─ test_result: "partial_pass"
+   ├─ source_document: "soc2_report.pdf, page 45-47"
+   ├─ extraction_confidence: 0.92
+   └─ Result: Verifiable, auditable evidence with source attribution
+```
+
+#### 3. **SOC 2 Gap Analysis (Built-In)**
+```
+Traditional TPRM:
+└─ Vendor: "Here's our SOC 2 report"
+   └─ Customer: Reads 150 pages, manually identifies gaps
+      └─ Result: Probably misses critical ASSURE requirements
+
+CONDUIT:
+└─ CONDUIT Package includes:
+   ├─ Evidence #23 (SSO/MFA): 75% compliant
+   │  ├─ SOC 2 Coverage: 50%
+   │  └─ Gap: "SOC 2 NEVER checks SSO paywall requirement!"
+   └─ Result: Automatic gap detection with remediation guidance
+```
+
+#### 4. **Continuous Validation (Not Annual)**
+```
+Traditional TPRM:
+└─ Annual vendor review
+   └─ Data is stale 11 months of the year
+      └─ Result: False sense of security
+
+CONDUIT:
+└─ Continuous monitoring:
+   ├─ Vendor publishes updated package quarterly
+   ├─ Automated alerts: "Pentest expires in 30 days"
+   ├─ Change detection: "MFA compliance dropped from 75% → 50%"
+   └─ Result: Always current, proactive risk management
+```
+
+#### 5. **AI-Powered Intelligence (Not Manual Review)**
+```
+Traditional TPRM:
+└─ Human analyst reads SOC 2 report for 4-6 hours
+   └─ Extracts key findings manually
+      └─ Result: Slow, expensive, inconsistent
+
+CONDUIT:
+└─ Claude AI reads ALL vendor documents in seconds:
+   ├─ Extracts 24 evidence types automatically
+   ├─ Synthesizes conflicting information
+   ├─ Scores confidence (0.0-1.0) on every extraction
+   ├─ Identifies risks with business impact context
+   └─ Result: Instant, accurate, scalable intelligence
+```
+
+#### 6. **Percentage-Based Compliance (Not Binary)**
+```
+Traditional TPRM:
+└─ Vendor risk rating: "Low / Medium / High"
+   └─ No transparency into how rating was calculated
+      └─ Result: Hard to justify to auditors, can't track improvement
+
+CONDUIT:
+└─ Percentage-based compliance per control:
+   ├─ BCP/DR: 66.7% (2/3 requirements passed)
+   ├─ Vulnerability Mgmt: 50.0% (2/4 requirements passed)
+   ├─ SSO/MFA: 75.0% (3/4 requirements passed)
+   └─ Result: Transparent, auditable, tracks improvement over time
+```
+
+### Industry Impact
+
+**CONDUIT aims to be the "SBOM for TPRM"**
+
+Just like Software Bill of Materials (SBOM) standardized dependency tracking:
+- Before SBOM: Every company tracked dependencies differently
+- After SBOM: Standard format, automated tools, industry-wide adoption
+
+CONDUIT does the same for Third-Party Risk Management:
+- Before CONDUIT: Every customer has unique questionnaire
+- After CONDUIT: Standard evidence format, automated processing, vendor ecosystems
+
+**The Vision**: Every SaaS vendor publishes CONDUIT package in their trust center. Every GRC tool auto-imports CONDUIT packages. No more questionnaires.
 
 ---
 
