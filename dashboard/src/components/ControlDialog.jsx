@@ -110,11 +110,9 @@ function ControlDialog({ control, vendors, open, onOpenChange }) {
                 <div className="space-y-1">
                   {ctrl.requirements?.map((req, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-sm">
-                      {req.status === 'passed' ? (
-                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
-                      ) : (
-                        <XCircle className="h-4 w-4 text-red-600 mt-0.5" />
-                      )}
+                      <span className={`${req.passed ? 'text-green-600' : 'text-red-600'} font-bold flex-shrink-0`}>
+                        {req.passed ? '✓' : '✗'}
+                      </span>
                       <p className="text-gray-700">{req.name}</p>
                     </div>
                   ))}
