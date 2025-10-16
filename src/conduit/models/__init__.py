@@ -20,13 +20,38 @@ Usage:
 """
 
 from .base import BaseEvidence
+from .evidence_004_vulnerability import (
+    BugBountyProgram,
+    PenetrationTest,
+    VulnerabilityEvidence,
+    VulnerabilityScan,
+)
+from .evidence_007_bcpdr import (
+    BCPDREvidence,
+    BCPDRFinding,
+    TestResult,
+    TestType,
+)
+from .evidence_023_sso_mfa import (
+    MFAType,
+    SSOMMFAEvidence,
+    SSOProtocol,
+)
 
-# Phase 1: 3 starter evidence types
-# TODO: Import evidence_007_bcpdr (Step 4)
-# TODO: Import evidence_023_sso_mfa (Step 5)
-# TODO: Import evidence_004_vulnerability (Step 6)
+# Phase 1: 3 starter evidence types complete!
+# Phase 4: Remaining 21 evidence types
 
 __all__ = [
     "BaseEvidence",
-    # Phase 1 models will be added here
+    "BugBountyProgram",
+    "PenetrationTest",
+    "VulnerabilityEvidence",
+    "VulnerabilityScan",
+    "BCPDREvidence",
+    "BCPDRFinding",
+    "TestResult",
+    "TestType",
+    "MFAType",
+    "SSOMMFAEvidence",
+    "SSOProtocol",
 ]
