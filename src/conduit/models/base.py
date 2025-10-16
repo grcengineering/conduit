@@ -73,6 +73,81 @@ class BaseEvidence(BaseModel):
             f"{self.__class__.__name__} must implement is_compliant() method"
         )
 
+    def get_total_requirements(self) -> int:
+        """
+        Get the total number of requirements for this evidence type.
+
+        Subclasses MUST override this method to return the count of
+        sub-requirements that make up this control (e.g., BCP/DR has 3).
+
+        Returns:
+            int: Total number of requirements
+
+        Raises:
+            NotImplementedError: If subclass doesn't implement this method
+        """
+        raise NotImplementedError(
+            f"{self.__class__.__name__} must implement get_total_requirements() method"
+        )
+
+    def get_passed_requirements(self) -> int:
+        """
+        Get the number of requirements that passed validation.
+
+        Subclasses MUST override this method to count how many
+        sub-requirements pass validation (e.g., 2 out of 3 BCP/DR checks).
+
+        Returns:
+            int: Number of passed requirements
+
+        Raises:
+            NotImplementedError: If subclass doesn't implement this method
+        """
+        raise NotImplementedError(
+            f"{self.__class__.__name__} must implement get_passed_requirements() method"
+        )
+
+    def get_compliance_percentage(self) -> float:
+        """
+        Calculate the compliance percentage for this evidence.
+
+        Uses the simple formula: (passed_requirements / total_requirements) * 100
+
+        This provides a transparent, auditable metric that replaces complex
+        0.0-1.0 "strength" scores with clear pass/fail counting.
+
+        Returns:
+            float: Compliance percentage (0.0 to 100.0)
+
+        Example:
+            If 6 out of 8 sub-requirements pass: 6/8 * 100 = 75.0%
+        """
+        total = self.get_total_requirements()
+        if total == 0:
+            return 0.0
+        passed = self.get_passed_requirements()
+        return (passed / total) * 100.0
+
+    def get_compliance_status(self) -> str:
+        """
+        Get the compliance status based on percentage thresholds.
+
+        Status thresholds:
+        - compliant: >= 85%
+        - partially_compliant: 50-84%
+        - non_compliant: < 50%
+
+        Returns:
+            str: One of 'compliant', 'partially_compliant', 'non_compliant'
+        """
+        percentage = self.get_compliance_percentage()
+        if percentage >= 85:
+            return "compliant"
+        elif percentage >= 50:
+            return "partially_compliant"
+        else:
+            return "non_compliant"
+
     class Config:
         """Pydantic configuration"""
         json_schema_extra = {

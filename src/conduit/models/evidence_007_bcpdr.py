@@ -170,3 +170,41 @@ class BCPDREvidence(BaseEvidence):
             reasons.append("BCP/DR test failed (ASSURE requires passing test)")
 
         return reasons
+
+    def get_total_requirements(self) -> int:
+        """
+        BCP/DR has 3 core requirements that ASSURE checks.
+
+        Requirements:
+        1. Test date recency (within 12 months)
+        2. Test result (must pass or pass with findings)
+        3. Test scope (must be documented)
+
+        Returns:
+            int: Total of 3 requirements
+        """
+        return 3
+
+    def get_passed_requirements(self) -> int:
+        """
+        Count how many of the 3 BCP/DR requirements pass validation.
+
+        Returns:
+            int: Number of passed requirements (0-3)
+        """
+        passed = 0
+
+        # Requirement 1: Test within 12 months
+        twelve_months_ago = date.today() - timedelta(days=365)
+        if self.test_date >= twelve_months_ago:
+            passed += 1
+
+        # Requirement 2: Test passed (or passed with findings)
+        if self.test_result in [TestResult.PASS, TestResult.PASS_WITH_FINDINGS]:
+            passed += 1
+
+        # Requirement 3: Scope documented (non-empty string)
+        if self.scope and len(self.scope.strip()) > 0:
+            passed += 1
+
+        return passed

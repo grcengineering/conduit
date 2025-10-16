@@ -210,3 +210,45 @@ class SSOMMFAEvidence(BaseEvidence):
         }
 
         return [mfa for mfa in self.mfa_types_supported if mfa in non_phishing_resistant]
+
+    def get_total_requirements(self) -> int:
+        """
+        SSO/MFA has 4 core requirements that ASSURE checks.
+
+        Requirements:
+        1. SSO supported
+        2. SSO not behind paywall (critical!)
+        3. MFA available (at least one type)
+        4. Phishing-resistant MFA available
+
+        Returns:
+            int: Total of 4 requirements
+        """
+        return 4
+
+    def get_passed_requirements(self) -> int:
+        """
+        Count how many of the 4 SSO/MFA requirements pass validation.
+
+        Returns:
+            int: Number of passed requirements (0-4)
+        """
+        passed = 0
+
+        # Requirement 1: SSO supported
+        if self.sso_supported:
+            passed += 1
+
+        # Requirement 2: SSO not behind paywall (CRITICAL!)
+        if not self.sso_requires_paid_plan:
+            passed += 1
+
+        # Requirement 3: MFA available (at least one type)
+        if len(self.mfa_types_supported) > 0:
+            passed += 1
+
+        # Requirement 4: Phishing-resistant MFA available
+        if self.phishing_resistant_mfa_available:
+            passed += 1
+
+        return passed
