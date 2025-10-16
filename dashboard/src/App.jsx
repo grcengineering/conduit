@@ -19,11 +19,22 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import StatsCard from '@/components/StatsCard'
 import VendorCard from '@/components/VendorCard'
 import ComplianceGraph from '@/components/ComplianceGraph'
+import VendorDialog from '@/components/VendorDialog'
+import ControlDialog from '@/components/ControlDialog'
+import RiskDialog from '@/components/RiskDialog'
 import './App.css'
 
 function App() {
   // State for the current view mode (tabs)
   const [viewMode, setViewMode] = useState('vendor-control')
+
+  // State for dialogs
+  const [selectedVendor, setSelectedVendor] = useState(null)
+  const [vendorDialogOpen, setVendorDialogOpen] = useState(false)
+  const [selectedControl, setSelectedControl] = useState(null)
+  const [controlDialogOpen, setControlDialogOpen] = useState(false)
+  const [selectedRisk, setSelectedRisk] = useState(null)
+  const [riskDialogOpen, setRiskDialogOpen] = useState(false)
 
   /**
    * Calculate Dashboard Statistics
@@ -53,11 +64,11 @@ function App() {
 
   /**
    * Handle vendor card click
-   * In a real application, this would open a detailed view
+   * Opens the vendor details dialog
    */
   const handleVendorClick = (vendor) => {
-    console.log('Vendor clicked:', vendor)
-    // Future: Open dialog with detailed vendor information
+    setSelectedVendor(vendor)
+    setVendorDialogOpen(true)
   }
 
   /**
@@ -66,10 +77,25 @@ function App() {
    */
   const handleNodeClick = (nodeId, nodeType) => {
     console.log(`${nodeType} node clicked:`, nodeId)
-    // Future: Open detailed view based on node type
+
     if (nodeType === 'vendor') {
       const vendor = mockEvidence.vendors.find(v => v.id === nodeId)
-      if (vendor) handleVendorClick(vendor)
+      if (vendor) {
+        setSelectedVendor(vendor)
+        setVendorDialogOpen(true)
+      }
+    } else if (nodeType === 'control') {
+      const control = mockEvidence.controls.find(c => c.id === nodeId)
+      if (control) {
+        setSelectedControl(control)
+        setControlDialogOpen(true)
+      }
+    } else if (nodeType === 'risk') {
+      const risk = mockEvidence.risks.find(r => r.id === nodeId)
+      if (risk) {
+        setSelectedRisk(risk)
+        setRiskDialogOpen(true)
+      }
     }
   }
 
@@ -221,6 +247,25 @@ function App() {
           <p>CONDUIT Risk Management Dashboard - Built with React, Vite, and Tailwind CSS</p>
         </div>
       </footer>
+
+      {/* Dialogs */}
+      <VendorDialog
+        vendor={selectedVendor}
+        open={vendorDialogOpen}
+        onOpenChange={setVendorDialogOpen}
+      />
+      <ControlDialog
+        control={selectedControl}
+        vendors={mockEvidence.vendors}
+        open={controlDialogOpen}
+        onOpenChange={setControlDialogOpen}
+      />
+      <RiskDialog
+        risk={selectedRisk}
+        controls={mockEvidence.controls}
+        open={riskDialogOpen}
+        onOpenChange={setRiskDialogOpen}
+      />
     </div>
   )
 }
