@@ -22,6 +22,7 @@ import ComplianceGraph from '@/components/ComplianceGraph'
 import VendorDialog from '@/components/VendorDialog'
 import ControlDialog from '@/components/ControlDialog'
 import RiskDialog from '@/components/RiskDialog'
+import EdgeLegend from '@/components/EdgeLegend'
 import './App.css'
 
 function App() {
@@ -169,14 +170,23 @@ function App() {
           />
         </motion.div>
 
-        {/* View Mode Tabs */}
-        <Tabs value={viewMode} onValueChange={setViewMode} className="mb-8">
-          <TabsList className="grid w-full max-w-md grid-cols-3">
-            <TabsTrigger value="vendor-control">Vendor-Control</TabsTrigger>
-            <TabsTrigger value="supply-chain">Supply-Chain</TabsTrigger>
-            <TabsTrigger value="risk-control">Risk-Control</TabsTrigger>
-          </TabsList>
+        {/* Controls Panel with Tabs and Legend */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">View Mode</label>
+              <Tabs value={viewMode} onValueChange={setViewMode}>
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="vendor-control">Vendor → Control</TabsTrigger>
+                  <TabsTrigger value="supply-chain">Supply Chain</TabsTrigger>
+                  <TabsTrigger value="risk-control">Risk → Control</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+            <EdgeLegend />
+          </div>
 
+        <Tabs value={viewMode} onValueChange={setViewMode}>
           {/* Tab Content - Vendor-Control Graph */}
           <TabsContent value="vendor-control" className="mt-6">
             <div
@@ -225,6 +235,15 @@ function App() {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Tip Box */}
+        <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p className="text-sm text-blue-800">
+            <strong>💡 Tip:</strong> Click on vendor, control, or risk nodes to see detailed requirements, risks, and raw JSON data.
+            Use scroll to zoom and drag to pan the graph.
+          </p>
+        </div>
+      </div>
 
         {/* Vendor Cards Section */}
         <div className="mt-12">
