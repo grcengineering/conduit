@@ -1,0 +1,172 @@
+/**
+ * CONDUIT Dashboard - Custom Styles
+ * Supplements Tailwind CSS with dashboard-specific styling
+ */
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Code blocks */
+code {
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+}
+
+/* Details/summary styling */
+details summary {
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] summary {
+  margin-bottom: 0.5rem;
+}
+
+/* Plotly graph container */
+#graph {
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+/* Hide Plotly logo */
+.modebar-btn[data-title="Produced with Plotly.js"] {
+  display: none !important;
+}
+
+/* Custom scrollbar for JSON */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Animation for details panel */
+#details-panel {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects for vendor cards */
+.vendor-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+/* Status badge styles */
+.status-compliant {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-partial {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-non-compliant {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .grid-cols-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-cols-5,
+  .grid-cols-3 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  #graph {
+    height: 400px !important;
+  }
+
+  .flex-wrap-mobile {
+    flex-wrap: wrap;
+  }
+}
+
+/* Print styles */
+@media print {
+  #details-panel {
+    display: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Loading state (optional, for future use) */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Tooltip styles (if needed) */
+.tooltip {
+  position: absolute;
+  background: #1e293b;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Custom checkbox styles (if needed) */
+input[type="checkbox"] {
+  accent-color: #3b82f6;
+}
