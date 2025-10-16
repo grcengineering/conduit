@@ -37,13 +37,25 @@ Vendor publishes 24 evidence types (CONDUIT format)
 
 ---
 
+## 🎨 Live Demo
+
+**[View Interactive Dashboard →](https://grcengineering.github.io/conduit/)**
+
+Explore CONDUIT's percentage-based compliance visualization with mock vendor data. Click nodes to see detailed requirements, risks, and raw JSON output.
+
+---
+
 ## Status
 
-🚧 **Phase 1 - In Development**
-Building 3 starter evidence schemas:
-- Evidence #7: BCP/DR Testing (simple)
-- Evidence #23: SSO/MFA Requirements (medium)
-- Evidence #4: Vulnerability Management (complex)
+✅ **Phase 1 - Complete**
+- 3 evidence schemas implemented with percentage-based compliance
+- 39 unit tests passing
+- Dashboard integration documentation
+
+🚧 **Phase 5 (Accelerated) - In Development**
+- Interactive Plotly dashboard
+- 3 view modes: Vendor-Control, Supply-Chain, Risk-Control
+- Clickable nodes with detailed drill-down
 
 ---
 
