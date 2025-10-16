@@ -34,7 +34,7 @@ function ControlDialog({ control, vendors, open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto bg-white text-gray-900">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             Control #{control.id}: {control.name}

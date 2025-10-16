@@ -51,7 +51,7 @@ function VendorDialog({ vendor, open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto bg-white text-gray-900">
         <DialogHeader>
           <DialogTitle className="text-2xl">{vendor.name}</DialogTitle>
           <DialogDescription>
@@ -135,18 +135,21 @@ function VendorDialog({ vendor, open, onOpenChange }) {
                 </div>
 
                 {/* Requirements List */}
-                <div className="space-y-1">
+                <div className="space-y-2 mt-3">
+                  <p className="text-xs font-semibold text-gray-700 uppercase">Requirements:</p>
                   {control.requirements?.map((req, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-xs">
-                      {req.status === 'passed' ? (
-                        <CheckCircle className="h-3 w-3 text-green-600 mt-0.5" />
-                      ) : (
-                        <XCircle className="h-3 w-3 text-red-600 mt-0.5" />
-                      )}
-                      <span className={req.status === 'passed' ? 'text-gray-600' : 'text-gray-900 font-medium'}>
-                        {req.name}
-                        {req.evidence && <span className="text-gray-500"> - {req.evidence}</span>}
+                    <div key={idx} className="flex items-start gap-2 text-sm">
+                      <span className={`${req.status === 'passed' ? 'text-green-600' : 'text-red-600'} font-bold flex-shrink-0`}>
+                        {req.status === 'passed' ? '✓' : '✗'}
                       </span>
+                      <div className="flex-1">
+                        <p className={`font-medium ${req.status === 'passed' ? 'text-gray-700' : 'text-gray-900'}`}>
+                          {req.name}
+                        </p>
+                        {req.evidence && (
+                          <p className="text-xs text-gray-600 mt-0.5">{req.evidence}</p>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
