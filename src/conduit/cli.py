@@ -10,10 +10,25 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from conduit.transformer import text_to_bcpdr, text_to_vulnerability, text_to_sso_mfa
+from conduit.transformer import (
+    text_to_bcpdr,
+    text_to_vulnerability,
+    text_to_sso_mfa,
+    text_to_encryption_at_rest,
+    text_to_encryption_in_transit,
+    text_to_incident_response,
+    text_to_logging_config,
+    text_to_production_access
+)
 from conduit.models.evidence_007_bcpdr import BCPDREvidence
 from conduit.models.evidence_004_vulnerability import VulnerabilityEvidence
 from conduit.models.evidence_023_sso_mfa import SSOMMFAEvidence
+from conduit.models.evidence_012_encryption_at_rest import EncryptionAtRestEvidence
+from conduit.models.evidence_013_encryption_in_transit import EncryptionInTransitEvidence
+from conduit.models.evidence_005_incident_response import IncidentResponseEvidence
+from conduit.models.evidence_014_logging_config import LoggingConfigEvidence
+from conduit.models.evidence_009_production_access import ProductionAccessEvidence
+from conduit.pdf_processor import pdf_to_text, get_pdf_metadata
 
 app = typer.Typer()
 console = Console()
@@ -22,7 +37,7 @@ console = Console()
 @app.command()
 def extract(
     vendor: str = typer.Option(..., "--vendor", "-v", help="Vendor name"),
-    evidence_type: str = typer.Option(..., "--type", "-t", help="Evidence type: bcpdr, vulnerability, sso_mfa"),
+    evidence_type: str = typer.Option(..., "--type", "-t", help="Evidence type: bcpdr, vulnerability, sso_mfa, encryption_at_rest, encryption_in_transit, incident_response, logging_config, production_access"),
     file: Optional[Path] = typer.Option(None, "--file", "-f", help="Input file path (if not using stdin)"),
     output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output file path (default: stdout)"),
     expensive: bool = typer.Option(False, "--expensive", help="Use expensive Sonnet model instead of cheap Haiku"),
@@ -34,8 +49,11 @@ def extract(
         # From stdin
         echo "BCP/DR test on 2025-08-15..." | conduit extract -v "Acme Corp" -t bcpdr
 
-        # From file
+        # From text file
         conduit extract -v "Acme Corp" -t bcpdr -f trust_center.txt
+
+        # From PDF (SOC 2 report)
+        conduit extract -v "Island" -t bcpdr -f "Island SOC2 2025.pdf"
 
         # Save to file
         conduit extract -v "Acme Corp" -t bcpdr -f input.txt -o evidence.json
@@ -46,8 +64,23 @@ def extract(
             if not file.exists():
                 console.print(f"[red]Error: File not found: {file}[/red]")
                 raise typer.Exit(1)
-            text = file.read_text()
-            console.print(f"[blue]Reading from file: {file}[/blue]")
+
+            # Check if file is PDF
+            if file.suffix.lower() == '.pdf':
+                console.print(f"[blue]Reading PDF file: {file}[/blue]")
+
+                # Get PDF metadata
+                metadata = get_pdf_metadata(file)
+                console.print(f"[dim]PDF Info: {metadata['page_count']} pages, {metadata['file_size_mb']:.1f}MB[/dim]")
+
+                # Extract text from PDF
+                console.print("[blue]Extracting text from PDF using PyMuPDF4LLM...[/blue]")
+                text = pdf_to_text(file)
+                console.print(f"[green]✓ Extracted {len(text)} characters[/green]")
+            else:
+                # Regular text file
+                text = file.read_text()
+                console.print(f"[blue]Reading text file: {file}[/blue]")
         else:
             # Read from stdin
             if sys.stdin.isatty():
@@ -64,6 +97,11 @@ def extract(
             "bcpdr": (text_to_bcpdr, BCPDREvidence, "BCP/DR Testing"),
             "vulnerability": (text_to_vulnerability, VulnerabilityEvidence, "Vulnerability Management"),
             "sso_mfa": (text_to_sso_mfa, SSOMMFAEvidence, "SSO/MFA Requirements"),
+            "encryption_at_rest": (text_to_encryption_at_rest, EncryptionAtRestEvidence, "Encryption at Rest"),
+            "encryption_in_transit": (text_to_encryption_in_transit, EncryptionInTransitEvidence, "Encryption in Transit"),
+            "incident_response": (text_to_incident_response, IncidentResponseEvidence, "Incident Response"),
+            "logging_config": (text_to_logging_config, LoggingConfigEvidence, "Logging Configuration"),
+            "production_access": (text_to_production_access, ProductionAccessEvidence, "Production Access Controls"),
         }
 
         if evidence_type not in extractors:
