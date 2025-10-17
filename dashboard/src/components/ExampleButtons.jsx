@@ -68,7 +68,7 @@ const ExampleButtons = ({ onSelect, disabled }) => {
 
       <div className="text-xs text-gray-500 bg-blue-50 p-3 rounded border border-blue-200">
         ℹ️ <strong>Note:</strong> These are pre-computed demo examples. To extract from your own text,
-        install the CLI: <code className="bg-white px-1 py-0.5 rounded">pip install conduit</code>
+        install the CLI: <code className="bg-white px-1 py-0.5 rounded">pip install git+https://github.com/grcengineering/conduit.git</code>
       </div>
     </div>
   )
