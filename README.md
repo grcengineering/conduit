@@ -375,13 +375,88 @@ src/conduit/models/
 
 ---
 
-## Quick Start (Coming Soon)
+## Quick Start
+
+### Setup
 
 ```bash
-# Install
+# 1. Install dependencies
 pdm install
 
-# Transform vendor document to CONDUIT format
+# 2. Configure Claude API key
+cp .env.template .env
+# Edit .env and add your ANTHROPIC_API_KEY
+```
+
+### Extract Evidence from Text (Phase 2 - AVAILABLE NOW)
+
+```bash
+# From stdin (copy/paste text)
+echo "We completed BCP/DR test on Aug 15, 2025. Partial failover test..." | \
+  conduit extract -v "Acme Corp" -t bcpdr
+
+# From file (trust center, email, SOC 2 extract, etc.)
+conduit extract -v "Acme Corp" -t bcpdr -f trust_center.txt
+
+# Save output to JSON file
+conduit extract -v "Acme Corp" -t vulnerability -f input.txt -o evidence.json
+
+# Available evidence types:
+#   bcpdr          - BCP/DR Testing (Evidence #7)
+#   vulnerability  - Vulnerability Management (Evidence #4)
+#   sso_mfa        - SSO/MFA Requirements (Evidence #23)
+
+# Use expensive Sonnet model for higher accuracy
+conduit extract -v "Acme Corp" -t bcpdr -f input.txt --expensive
+```
+
+### Example Output
+
+```
+Extracting BCP/DR Testing evidence...
+Model: Claude Haiku (cheap)
+Validating with Pydantic schema...
+╭──────────────────────────────────────────╮
+│ ✓ Valid BCP/DR Testing evidence created! │
+╰──────────────────────────────────────────╯
+                 Compliance Summary
+┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric                ┃ Value                    ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Vendor                │ Acme Corp                │
+│ Evidence Type         │ assure_007_bcpdr_testing │
+│ Compliance %          │ 100.0%                   │
+│ Status                │ compliant                │
+│ Requirements Passed   │ 3/3                      │
+└───────────────────────┴──────────────────────────┘
+```
+
+### Python API Usage
+
+```python
+from conduit.transformer import text_to_bcpdr
+from conduit.models.evidence_007_bcpdr import BCPDREvidence
+
+# Extract from ANY text source
+text = """
+At Acme Corp, we completed our disaster recovery test on August 15, 2025.
+We performed a partial failover test covering production systems...
+"""
+
+# Transform text → validated evidence
+data = text_to_bcpdr(text, "Acme Corp")
+evidence = BCPDREvidence.model_validate(data)
+
+# Use validated object
+print(f"Compliance: {evidence.get_compliance_percentage()}%")
+print(f"Status: {evidence.get_compliance_status()}")
+print(f"Test Date: {evidence.test_date}")
+```
+
+### Future Commands (Phase 3)
+
+```bash
+# Transform vendor document to CONDUIT format (PDF processing)
 conduit transform vendor_soc2.pdf
 
 # Validate CONDUIT evidence package
