@@ -377,13 +377,25 @@ src/conduit/models/
 
 ## Quick Start
 
-### Setup
+### Installation
 
+**For Users (Recommended):**
 ```bash
-# 1. Install dependencies
+# Install CONDUIT CLI using pip
+pip install git+https://github.com/grcengineering/conduit.git
+
+# Or using pipx (better for CLI tools)
+pipx install git+https://github.com/grcengineering/conduit.git
+```
+
+**For Developers:**
+```bash
+# Clone and install with PDM
+git clone https://github.com/grcengineering/conduit.git
+cd conduit
 pdm install
 
-# 2. Configure Claude API key
+# Configure Claude API key
 cp .env.template .env
 # Edit .env and add your ANTHROPIC_API_KEY
 ```
