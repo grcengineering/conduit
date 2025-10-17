@@ -13,7 +13,7 @@
  */
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Users, Shield, TrendingUp, AlertTriangle, Github } from 'lucide-react'
+import { Users, Shield, TrendingUp, AlertTriangle, Github, Sparkles } from 'lucide-react'
 import { mockEvidence } from '@/data/mockData.js'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import StatsCard from '@/components/StatsCard'
@@ -23,11 +23,15 @@ import VendorDialog from '@/components/VendorDialog'
 import ControlDialog from '@/components/ControlDialog'
 import RiskDialog from '@/components/RiskDialog'
 import EdgeLegend from '@/components/EdgeLegend'
+import DemoChatbot from '@/components/DemoChatbot'
 import './App.css'
 
 function App() {
   // State for the current view mode (tabs)
   const [viewMode, setViewMode] = useState('vendor-control')
+
+  // State for demo vendors (added from chatbot)
+  const [demoVendors, setDemoVendors] = useState([])
 
   // State for dialogs
   const [selectedVendor, setSelectedVendor] = useState(null)
@@ -38,30 +42,70 @@ function App() {
   const [riskDialogOpen, setRiskDialogOpen] = useState(false)
 
   /**
+   * Handle adding demo vendor from chatbot
+   */
+  const handleAddDemoVendor = (dashboardData) => {
+    const newVendor = {
+      id: `demo_${Date.now()}`,
+      name: dashboardData.vendor_name,
+      criticality: 'medium',
+      riskScore: 0.15,
+      subprocessors: [],
+      controls: [{
+        id: dashboardData.control_id,
+        name: dashboardData.control_name,
+        passed: dashboardData.passed || 3,
+        total: dashboardData.total || 3,
+        percentage: dashboardData.percentage || 100,
+        status: dashboardData.status || 'compliant',
+        requirements: [],
+        risks: [],
+        source_document: 'Demo extraction',
+        extraction_confidence: dashboardData.extraction_confidence || 0.85,
+        soc2_overlap: 85,
+        structuredData: {
+          evidence_type: dashboardData.evidence_type,
+          vendor_name: dashboardData.vendor_name
+        }
+      }]
+    }
+
+    setDemoVendors(prev => [...prev, newVendor])
+    setViewMode('vendor-control')
+  }
+
+  // Merge demo vendors with mock data
+  const allVendors = [...mockEvidence.vendors, ...demoVendors]
+  const evidenceData = {
+    ...mockEvidence,
+    vendors: allVendors
+  }
+
+  /**
    * Calculate Dashboard Statistics
    * These are computed from the mockEvidence data
    */
 
-  // Total number of vendors
-  const totalVendors = mockEvidence.vendors.length
+  // Total number of vendors (including demo vendors)
+  const totalVendors = allVendors.length
 
   // Total number of unique controls evaluated across all vendors
   const totalControls = mockEvidence.controls.length
 
   // Average compliance percentage across all vendors
   const avgCompliance = (
-    mockEvidence.vendors.reduce((sum, vendor) => {
+    allVendors.reduce((sum, vendor) => {
       const totalReqs = vendor.controls.reduce((s, c) => s + c.total, 0)
       const passedReqs = vendor.controls.reduce((s, c) => s + c.passed, 0)
       return sum + (passedReqs / totalReqs) * 100
-    }, 0) / mockEvidence.vendors.length
+    }, 0) / allVendors.length
   ).toFixed(1)
 
   // Total number of unique risks identified
   const totalRisks = mockEvidence.risks.length
 
   // Count of high-risk vendors (risk score >= 40%)
-  const highRiskVendors = mockEvidence.vendors.filter(v => v.riskScore >= 0.4).length
+  const highRiskVendors = allVendors.filter(v => v.riskScore >= 0.4).length
 
   /**
    * Handle vendor card click
@@ -80,7 +124,7 @@ function App() {
     console.log(`${nodeType} node clicked:`, nodeId)
 
     if (nodeType === 'vendor') {
-      const vendor = mockEvidence.vendors.find(v => v.id === nodeId)
+      const vendor = allVendors.find(v => v.id === nodeId)
       if (vendor) {
         setSelectedVendor(vendor)
         setVendorDialogOpen(true)
@@ -115,16 +159,26 @@ function App() {
               </div>
             </div>
 
-            {/* GitHub Link */}
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              <Github className="h-5 w-5" />
-              <span className="text-sm font-medium">GitHub</span>
-            </a>
+            {/* Actions */}
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setViewMode('demo')}
+                className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium shadow-sm"
+              >
+                <Sparkles className="h-5 w-5" />
+                Live Demo
+              </button>
+
+              <a
+                href="https://github.com/grcengineering/conduit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                <Github className="h-5 w-5" />
+                <span className="text-sm font-medium">GitHub</span>
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -170,23 +224,28 @@ function App() {
           />
         </motion.div>
 
-        {/* Controls Panel with Tabs and Legend */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">View Mode</label>
-              <Tabs value={viewMode} onValueChange={setViewMode}>
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="vendor-control">Vendor → Control</TabsTrigger>
-                  <TabsTrigger value="supply-chain">Supply Chain</TabsTrigger>
-                  <TabsTrigger value="risk-control">Risk → Control</TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </div>
-            <EdgeLegend />
+        {/* Demo Chatbot OR Controls Panel */}
+        {viewMode === 'demo' ? (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+            <DemoChatbot onAddVendor={handleAddDemoVendor} />
           </div>
+        ) : (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">View Mode</label>
+                <Tabs value={viewMode} onValueChange={setViewMode}>
+                  <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="vendor-control">Vendor → Control</TabsTrigger>
+                    <TabsTrigger value="supply-chain">Supply Chain</TabsTrigger>
+                    <TabsTrigger value="risk-control">Risk → Control</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+              <EdgeLegend />
+            </div>
 
-        <Tabs value={viewMode} onValueChange={setViewMode}>
+          <Tabs value={viewMode} onValueChange={setViewMode}>
           {/* Tab Content - Vendor-Control Graph */}
           <TabsContent value="vendor-control" className="mt-6">
             <div
@@ -195,9 +254,9 @@ function App() {
             >
               <ComplianceGraph
                 viewMode="vendor-control"
-                vendors={mockEvidence.vendors}
-                controls={mockEvidence.controls}
-                risks={mockEvidence.risks}
+                vendors={evidenceData.vendors}
+                controls={evidenceData.controls}
+                risks={evidenceData.risks}
                 onNodeClick={handleNodeClick}
               />
             </div>
@@ -211,9 +270,9 @@ function App() {
             >
               <ComplianceGraph
                 viewMode="supply-chain"
-                vendors={mockEvidence.vendors}
-                controls={mockEvidence.controls}
-                risks={mockEvidence.risks}
+                vendors={evidenceData.vendors}
+                controls={evidenceData.controls}
+                risks={evidenceData.risks}
                 onNodeClick={handleNodeClick}
               />
             </div>
@@ -227,9 +286,9 @@ function App() {
             >
               <ComplianceGraph
                 viewMode="risk-control"
-                vendors={mockEvidence.vendors}
-                controls={mockEvidence.controls}
-                risks={mockEvidence.risks}
+                vendors={evidenceData.vendors}
+                controls={evidenceData.controls}
+                risks={evidenceData.risks}
                 onNodeClick={handleNodeClick}
               />
             </div>
@@ -244,12 +303,20 @@ function App() {
           </p>
         </div>
       </div>
+        )}
 
         {/* Vendor Cards Section */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Vendors</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Vendors
+            {demoVendors.length > 0 && (
+              <span className="ml-2 text-sm font-normal text-blue-600">
+                ({demoVendors.length} from demo)
+              </span>
+            )}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mockEvidence.vendors.map((vendor) => (
+            {allVendors.map((vendor) => (
               <VendorCard
                 key={vendor.id}
                 vendor={vendor}
