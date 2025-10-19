@@ -124,6 +124,21 @@ const DemoChatbot = ({ onAddVendor }) => {
             <p className="text-sm text-gray-600">Interactive extraction & validation workflow</p>
           </div>
         </div>
+
+        {/* Demo Info Banner */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mt-4 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 rounded-lg p-3"
+        >
+          <p className="text-xs text-amber-900 leading-relaxed">
+            <span className="font-semibold">Note:</span> This chatbot simulates the CONDUIT workflow using pre-computed examples.
+            The actual backend uses <span className="font-semibold">Claude Haiku 4.5</span> to extract evidence from vendor documents
+            in <span className="font-semibold">XML format</span>, validates against Pydantic schemas, and calculates compliance scores.
+            Select an example below to see the complete 5-step workflow in action.
+          </p>
+        </motion.div>
       </div>
 
       {/* Step Progress */}

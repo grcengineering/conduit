@@ -185,6 +185,41 @@ function App() {
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
+        {/* Demo Mode Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="bg-gradient-to-r from-blue-50 to-teal-50 border-l-4 border-blue-500 rounded-lg p-4 mb-6 shadow-sm"
+        >
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0">
+              <Sparkles className="h-5 w-5 text-blue-600 mt-0.5" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-sm font-semibold text-blue-900 mb-1">
+                Demo Mode - Static Mock Data
+              </h3>
+              <p className="text-xs text-blue-800 leading-relaxed">
+                This dashboard displays mock evidence for 3 vendors with 8 implemented ASSURE controls.
+                The actual CONDUIT backend uses <span className="font-semibold">XML-based extraction</span> with Claude Haiku 4.5
+                to process real vendor documents. Click "Live Demo" to try the interactive evidence extraction chatbot.
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2 text-xs">
+                <span className="inline-flex items-center px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-medium">
+                  8 of 24 ASSURE controls implemented
+                </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded bg-teal-100 text-teal-800 font-medium">
+                  XML extraction format
+                </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-medium">
+                  Pattern-based validation
+                </span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Statistics Cards Section */}
         <motion.div
           initial={{ opacity: 0 }}

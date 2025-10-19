@@ -21,9 +21,53 @@ function VendorDialog({ vendor, open, onOpenChange }) {
   const totalRequirements = vendor.controls.reduce((sum, c) => sum + c.total, 0)
   const compliance = ((totalPassed / totalRequirements) * 100).toFixed(1)
 
-  // Toggle JSON expansion for a control
+  // Toggle XML expansion for a control
   const toggleJson = (controlId) => {
     setExpandedJson(prev => ({ ...prev, [controlId]: !prev[controlId] }))
+  }
+
+  // Convert structured data to XML format (mimics backend XML extraction)
+  const convertToXML = (structuredData) => {
+    if (!structuredData) return ''
+
+    const evidenceType = structuredData.evidence_type || 'unknown_evidence'
+    let xml = `<${evidenceType}>\n`
+
+    // Recursively convert object to XML
+    const objectToXML = (obj, indent = '  ') => {
+      let result = ''
+      for (const [key, value] of Object.entries(obj)) {
+        if (key === 'evidence_type') continue // Already used as root element
+
+        if (Array.isArray(value)) {
+          // Handle arrays
+          result += `${indent}<${key}>\n`
+          value.forEach(item => {
+            if (typeof item === 'object') {
+              result += `${indent}  <item>\n`
+              result += objectToXML(item, indent + '    ')
+              result += `${indent}  </item>\n`
+            } else {
+              result += `${indent}  <item>${item}</item>\n`
+            }
+          })
+          result += `${indent}</${key}>\n`
+        } else if (typeof value === 'object' && value !== null) {
+          // Handle nested objects
+          result += `${indent}<${key}>\n`
+          result += objectToXML(value, indent + '  ')
+          result += `${indent}</${key}>\n`
+        } else {
+          // Handle primitives
+          result += `${indent}<${key}>${value}</${key}>\n`
+        }
+      }
+      return result
+    }
+
+    xml += objectToXML(structuredData)
+    xml += `</${evidenceType}>`
+    return xml
   }
 
   // Get status icon and color
@@ -177,7 +221,7 @@ function VendorDialog({ vendor, open, onOpenChange }) {
                   </p>
                 </div>
 
-                {/* Raw JSON Dropdown */}
+                {/* Extracted XML Dropdown */}
                 {control.structuredData && (
                   <div className="mt-3 border-t border-gray-200 pt-3">
                     <button
@@ -187,19 +231,19 @@ function VendorDialog({ vendor, open, onOpenChange }) {
                       {expandedJson[control.id] ? (
                         <>
                           <ChevronUp className="h-4 w-4" />
-                          <span>Hide Raw JSON</span>
+                          <span>Hide Extracted XML</span>
                         </>
                       ) : (
                         <>
                           <ChevronDown className="h-4 w-4" />
-                          <span>View Raw JSON</span>
+                          <span>View Extracted XML</span>
                         </>
                       )}
                     </button>
 
                     {expandedJson[control.id] && (
                       <pre className="mt-2 bg-gray-900 text-green-400 p-3 rounded text-xs overflow-x-auto max-h-96 overflow-y-auto">
-                        {JSON.stringify(control.structuredData, null, 2)}
+                        {convertToXML(control.structuredData)}
                       </pre>
                     )}
                   </div>

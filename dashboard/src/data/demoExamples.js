@@ -6,10 +6,24 @@
  *
  * Each example contains:
  * - Input text (what user would paste)
- * - Extraction results (what Claude would extract)
+ * - Extraction results (what Claude would extract via XML)
  * - Validation checks (Pydantic validation results)
  * - Compliance calculation (percentage-based scoring)
  * - Dashboard data (for live integration)
+ *
+ * NOTE: The actual CONDUIT backend uses XML-based extraction where Claude
+ * outputs structured XML that gets parsed and validated against Pydantic models.
+ * The extraction fields shown here represent the final validated structure.
+ *
+ * Example XML extraction format:
+ * <assure_007_bcpdr_testing>
+ *   <test_date>2025-08-15</test_date>
+ *   <test_result>pass</test_result>
+ *   <test_type>partial_failover</test_type>
+ *   <scope>production database, application servers, and load balancers</scope>
+ *   <recovery_time_objective_met>true</recovery_time_objective_met>
+ *   <recovery_point_objective_met>true</recovery_point_objective_met>
+ * </assure_007_bcpdr_testing>
  */
 
 export const demoExamples = {
