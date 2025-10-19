@@ -384,6 +384,7 @@ function App() {
       <RiskDialog
         risk={selectedRisk}
         controls={mockEvidence.controls}
+        vendors={allVendors}
         open={riskDialogOpen}
         onOpenChange={setRiskDialogOpen}
       />
