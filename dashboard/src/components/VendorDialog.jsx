@@ -70,6 +70,86 @@ function VendorDialog({ vendor, open, onOpenChange }) {
     return xml
   }
 
+  // Convert XML string to syntax-highlighted JSX
+  const convertToColoredXML = (structuredData) => {
+    const xmlString = convertToXML(structuredData)
+    if (!xmlString) return null
+
+    // Split XML into tokens: tags and content
+    const tokens = []
+    let currentIndex = 0
+
+    // Regex to match XML tags (opening, closing, self-closing)
+    const tagRegex = /<\/?[\w_:]+>|<[\w_:]+\s*\/>/g
+    let match
+
+    while ((match = tagRegex.exec(xmlString)) !== null) {
+      // Add content before tag (if any)
+      if (match.index > currentIndex) {
+        const content = xmlString.slice(currentIndex, match.index)
+        if (content.trim()) {
+          tokens.push({ type: 'content', value: content })
+        } else {
+          tokens.push({ type: 'whitespace', value: content })
+        }
+      }
+
+      // Add the tag itself
+      const tagText = match[0]
+      if (tagText.startsWith('</')) {
+        // Closing tag
+        tokens.push({ type: 'closing-tag', value: tagText })
+      } else {
+        // Opening tag
+        tokens.push({ type: 'opening-tag', value: tagText })
+      }
+
+      currentIndex = match.index + tagText.length
+    }
+
+    // Add any remaining content
+    if (currentIndex < xmlString.length) {
+      const remaining = xmlString.slice(currentIndex)
+      tokens.push({ type: 'whitespace', value: remaining })
+    }
+
+    // Convert tokens to styled JSX
+    return tokens.map((token, idx) => {
+      switch (token.type) {
+        case 'opening-tag':
+          // Extract tag name from <tagname>
+          const openTagName = token.value.slice(1, -1)
+          return (
+            <span key={idx}>
+              <span className="text-gray-500">{'<'}</span>
+              <span className="text-cyan-400">{openTagName}</span>
+              <span className="text-gray-500">{'>'}</span>
+            </span>
+          )
+        case 'closing-tag':
+          // Extract tag name from </tagname>
+          const closeTagName = token.value.slice(2, -1)
+          return (
+            <span key={idx}>
+              <span className="text-gray-500">{'</'}</span>
+              <span className="text-cyan-400">{closeTagName}</span>
+              <span className="text-gray-500">{'>'}</span>
+            </span>
+          )
+        case 'content':
+          return (
+            <span key={idx} className="text-orange-300">
+              {token.value}
+            </span>
+          )
+        case 'whitespace':
+          return <span key={idx}>{token.value}</span>
+        default:
+          return <span key={idx}>{token.value}</span>
+      }
+    })
+  }
+
   // Get status icon and color
   const getStatusInfo = (status) => {
     switch (status) {
@@ -242,8 +322,8 @@ function VendorDialog({ vendor, open, onOpenChange }) {
                     </button>
 
                     {expandedJson[control.id] && (
-                      <pre className="mt-2 bg-gray-900 text-green-400 p-3 rounded text-xs overflow-x-auto max-h-96 overflow-y-auto">
-                        {convertToXML(control.structuredData)}
+                      <pre className="mt-2 bg-gray-900 p-3 rounded text-xs overflow-x-auto max-h-96 overflow-y-auto font-mono">
+                        {convertToColoredXML(control.structuredData)}
                       </pre>
                     )}
                   </div>
