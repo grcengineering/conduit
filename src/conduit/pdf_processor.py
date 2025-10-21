@@ -7,14 +7,14 @@ Based on proven extraction patterns from ai-powered-assurance-workflows.
 
 import pymupdf4llm
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 def pdf_to_text(
-    pdf_path: str | Path,
+    pdf_path: Union[str, Path],
     page_range: Optional[Tuple[int, int]] = None
 ) -> str:
     """
@@ -76,7 +76,7 @@ def pdf_to_text(
         raise RuntimeError(f"Failed to extract text from {pdf_path.name}: {str(e)}")
 
 
-def get_pdf_metadata(pdf_path: str | Path) -> dict:
+def get_pdf_metadata(pdf_path: Union[str, Path]) -> dict:
     """
     Extract basic metadata from PDF.
 

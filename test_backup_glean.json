@@ -1,0 +1,20 @@
+{
+  "evidence_type": "assure_006_backup_configuration",
+  "vendor_name": "Glean Technologies",
+  "evidence_date": "2025-10-20",
+  "soc2_section_4_criteria": [],
+  "soc2_coverage_percentage": 0,
+  "extraction_confidence": 0.8,
+  "source_document": null,
+  "backup_frequency": "daily",
+  "backup_schedule_description": "periodic backups for production data",
+  "retention_period_days": 30,
+  "last_test_date": "2025-10-20",
+  "last_test_result": "not_tested",
+  "test_frequency_days": 90,
+  "backup_scope": "production data",
+  "storage_location": "different_region",
+  "is_encrypted": false,
+  "is_automated": true,
+  "monitoring_enabled": true
+}
