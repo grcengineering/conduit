@@ -1,0 +1,105 @@
+CLOUDSTORE PRO DATA RETENTION AND DELETION POLICY
+
+Version 3.2 | Last Updated: October 1, 2025
+
+1. POLICY OVERVIEW
+This Data Retention and Deletion Policy defines how CloudStore Pro retains, stores, and deletes customer data in compliance with GDPR, CCPA, and industry best practices.
+
+Policy Location: Data Processing Agreement (DPA), Exhibit B
+
+2. RETENTION PERIODS BY DATA CATEGORY
+
+Customer Data (Personal Information):
+- Retention period: 30 days after account termination
+- Active accounts: Retained while account is active
+
+Transaction Data:
+- Retention period: 7 years (regulatory requirement)
+- Includes: Payment records, invoices, billing history
+
+System Logs (Access logs, audit logs):
+- Retention period: 13 months
+- Security logs: 24 months minimum
+
+Backup Data:
+- Retention period: 90 days rolling backups
+- Long-term backups: 1 year
+- Backup deletion: Synchronized with production deletion
+
+Analytics Data (Anonymized):
+- Retention period: 3 years
+- Note: Anonymized data is not subject to deletion requests
+
+3. DELETION METHODS
+
+Primary Deletion Method: Cryptographic Erasure (AES-256 keys destroyed)
+- All customer data encrypted at rest
+- Key destruction renders data permanently unreadable
+- Complies with NIST 800-88 guidelines
+
+Secondary Method: Secure Deletion (DoD 5220.22-M standard)
+- 7-pass overwrite for unencrypted data
+- Applied to database records, file systems, and backups
+
+Physical Media: Certified destruction for decommissioned hardware
+- Certificate of Destruction provided upon request
+
+4. CUSTOMER DATA DELETION RIGHTS
+
+Customer Deletion Requests:
+- Timeframe: Within 30 days of written request
+- Scope: All personal data across production, backups, and archives
+- Verification: Customer identity verified before deletion
+- Notification: Deletion completion certificate issued
+
+Self-Service Deletion:
+- Customers can initiate deletion via admin portal
+- Automated deletion workflow triggered
+- Email confirmation sent upon completion
+
+5. BACKUP DATA DELETION
+
+Backup Inclusion: All deletion requests apply to backup systems
+- Production deletion synchronized to all backup tiers
+- Hot backups: Deleted within 1 day
+- Warm backups: Deleted within 7 days
+- Cold/archive backups: Deleted within 30 days
+
+Backup Verification: Monthly audit to ensure deleted data purged from all backups
+
+6. GDPR/CCPA COMPLIANCE
+
+Right to Erasure (GDPR Article 17): Fully supported
+- 30-day deletion SLA
+- Deletion extends to all data processors and subprocessors
+
+CCPA Deletion Rights (CCPA § 1798.105): Fully supported
+- Consumer deletion requests processed within 45 days (California law)
+- Opt-out respected for sale/sharing of personal information
+
+Data Subject Rights: All requests logged and tracked
+
+7. DELETION VERIFICATION AND CERTIFICATION
+
+Deletion Certification: Provided upon customer request
+- Certificate includes:
+  - Deletion completion date
+  - Data categories deleted
+  - Deletion method used
+  - Backup purge confirmation
+
+Audit Trail: All deletion requests logged for 7 years (compliance requirement)
+
+8. EXCEPTIONS TO DELETION
+
+Legal Holds: Data subject to legal hold cannot be deleted until hold released
+Regulatory Requirements: Financial transaction data retained for 7 years (Sarbanes-Oxley)
+Security Incidents: Data related to active security investigations retained until resolved
+
+9. AUTOMATED RETENTION MANAGEMENT
+
+Automated Deletion: Data automatically purged after retention period expires
+- Scheduled nightly deletion jobs
+- Manual override requires VP approval
+
+Retention Monitoring: Monthly reports to DPO on retention compliance

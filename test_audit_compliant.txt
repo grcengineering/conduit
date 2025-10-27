@@ -1,0 +1,110 @@
+DATAFLOW INC MASTER SERVICE AGREEMENT
+
+Section 11: Audit Rights and Compliance Verification
+
+11.1 CUSTOMER RIGHT TO AUDIT
+
+DataFlow Inc grants Customer the right to audit Vendor's security controls, data handling practices, and compliance with this Agreement.
+
+Audit Frequency: Customer may conduct audits:
+- Once per calendar year (annual audit)
+- Upon reasonable cause (e.g., security incident, compliance concern, customer request)
+- Following material changes to Vendor's security practices
+
+11.2 ADVANCE NOTICE REQUIREMENTS
+
+Customer must provide written notice to Vendor:
+- Advance Notice Period: 30 calendar days minimum for scheduled audits
+- Emergency audits: 5 business days for security incidents or regulatory investigations
+- Notice must include: audit scope, proposed dates, auditor names, and audit methodology
+
+11.3 AUDIT SCOPE
+
+Customer audits may include:
+- Security controls and policies review
+- Data handling and processing practices
+- Access controls and user management
+- Encryption implementation
+- Incident response procedures
+- Business continuity and disaster recovery capabilities
+- Compliance with contractual obligations
+- Vendor subprocessor and third-party risk management
+
+Customer may audit:
+- Systems processing Customer data
+- Documentation (policies, procedures, test results)
+- Personnel interviews (security, compliance, operations teams)
+- Physical facilities (data centers, offices)
+
+11.4 AUDITOR QUALIFICATIONS
+
+Customer may use:
+- Internal audit team
+- Third-party security auditors (e.g., Big Four, security consulting firms)
+- Regulatory auditors (as required by law)
+
+Requirements for third-party auditors:
+- Must sign NDA with Vendor
+- Must be independent (not Vendor competitors)
+- Must have relevant certifications (CISSP, CISA, ISO 27001 Lead Auditor)
+
+11.5 VENDOR COOPERATION
+
+DataFlow Inc commits to:
+- Provide reasonable access to systems, documentation, and personnel
+- Respond to audit findings within 30 days
+- Provide remediation plan for identified gaps
+- Allow follow-up audits to verify remediation
+
+Vendor reserves the right to:
+- Designate liaison for audit coordination
+- Restrict access to trade secrets and confidential information
+- Require Customer to reimburse Vendor for excessive audit burden (>3 audits per year)
+
+11.6 AUDIT COST ALLOCATION
+
+Cost Allocation:
+- Customer bears audit costs (auditor fees, travel, Customer personnel time)
+- Vendor bears internal costs (Vendor personnel time, documentation preparation)
+- If audit reveals material non-compliance, Vendor reimburses Customer audit costs
+
+Exception: Regulatory audits mandated by law are at Customer's expense.
+
+11.7 AUDIT REPORTS AND CONFIDENTIALITY
+
+Audit Report:
+- Customer provides written audit report within 30 days of audit completion
+- Report includes findings, risk ratings, and remediation recommendations
+- Vendor may respond to findings within 15 business days
+
+Confidentiality:
+- Audit reports are confidential information under this Agreement
+- Customer may share with regulators, auditors, board of directors
+- Vendor may not disclose Customer audit results to third parties
+
+11.8 ALTERNATIVE TO CUSTOMER AUDITS
+
+In lieu of individual Customer audits, Vendor may provide:
+- SOC 2 Type II report (annual, within 90 days of period end)
+- ISO 27001 certification (current)
+- Third-party security assessments (e.g., penetration tests, BCP/DR tests)
+
+Customer retains right to audit even if Vendor provides alternative reports.
+
+11.9 RIGHT TO AUDIT SUBPROCESSORS
+
+Customer's audit rights extend to Vendor's subprocessors and third-party service providers that:
+- Process Customer data
+- Provide security-critical services
+- Are material to service delivery
+
+Vendor will facilitate Customer audits of subprocessors, subject to subprocessor agreements.
+
+11.10 TERMINATION FOR AUDIT REFUSAL
+
+Material breach: Vendor's refusal to allow Customer audit constitutes material breach of contract.
+
+Customer remedies:
+- Termination for cause (30 days written notice)
+- Suspension of payments until audit completed
+- Legal action for specific performance

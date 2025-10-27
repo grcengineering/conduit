@@ -3731,9 +3731,12 @@ Output the XML structure for SLA evidence. Extract all available information."""
     if availability_measurement_period and availability_measurement_period.lower() in ['unknown', 'none', 'n/a']:
         availability_measurement_period = None
 
-    sla_reporting_frequency = parsed_data.get('sla_reporting_frequency', None)
-    if sla_reporting_frequency and sla_reporting_frequency.lower() in ['unknown', 'none', 'n/a']:
-        sla_reporting_frequency = None
+    sla_reporting_frequency_raw = parsed_data.get('sla_reporting_frequency', None)
+    sla_reporting_frequency = None  # Default to None
+    if sla_reporting_frequency_raw is not None:
+        sla_reporting_frequency_str = str(sla_reporting_frequency_raw).strip().lower()
+        if sla_reporting_frequency_str not in ['unknown', 'none', 'n/a', 'null', 'not specified', '']:
+            sla_reporting_frequency = sla_reporting_frequency_str  # Keep the lowercase string
 
     # Extraction confidence
     confidence_str = parsed_data.get('extraction_confidence', '0.80')
@@ -4010,8 +4013,8 @@ Output the XML structure for insurance coverage evidence. Extract all available 
     cyber_coverage_amount = None
     if cyber_coverage_amount_str not in ['unknown', 'none', None]:
         try:
-            # Handle formats: "5000000", "5M", "$5,000,000"
-            cleaned = cyber_coverage_amount_str.replace('$', '').replace(',', '').lower()
+            # Handle formats: "5000000", "5M", "$5,000,000", or integer 5000000
+            cleaned = str(cyber_coverage_amount_str).replace('$', '').replace(',', '').lower()
             if 'm' in cleaned or 'million' in cleaned:
                 cleaned = cleaned.replace('m', '').replace('million', '').strip()
                 cyber_coverage_amount = int(float(cleaned) * 1_000_000)
@@ -4027,7 +4030,7 @@ Output the XML structure for insurance coverage evidence. Extract all available 
     eo_coverage_amount = None
     if eo_coverage_amount_str not in ['unknown', 'none', None]:
         try:
-            cleaned = eo_coverage_amount_str.replace('$', '').replace(',', '').lower()
+            cleaned = str(eo_coverage_amount_str).replace('$', '').replace(',', '').lower()
             if 'm' in cleaned or 'million' in cleaned:
                 cleaned = cleaned.replace('m', '').replace('million', '').strip()
                 eo_coverage_amount = int(float(cleaned) * 1_000_000)
@@ -4043,7 +4046,7 @@ Output the XML structure for insurance coverage evidence. Extract all available 
     combined_coverage_amount = None
     if combined_coverage_amount_str not in ['unknown', 'none', None]:
         try:
-            cleaned = combined_coverage_amount_str.replace('$', '').replace(',', '').lower()
+            cleaned = str(combined_coverage_amount_str).replace('$', '').replace(',', '').lower()
             if 'm' in cleaned or 'million' in cleaned:
                 cleaned = cleaned.replace('m', '').replace('million', '').strip()
                 combined_coverage_amount = int(float(cleaned) * 1_000_000)

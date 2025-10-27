@@ -201,13 +201,13 @@ function App() {
                 Demo Mode - Static Mock Data
               </h3>
               <p className="text-xs text-blue-800 leading-relaxed">
-                This dashboard displays mock evidence for 3 vendors with 8 implemented ASSURE controls.
+                This dashboard displays mock evidence for 3 vendors with all 24 implemented ASSURE controls.
                 The actual CONDUIT backend uses <span className="font-semibold">XML-based extraction</span> with Claude Haiku 4.5
                 to process real vendor documents. Click "Live Demo" to try the interactive evidence extraction chatbot.
               </p>
               <div className="mt-2 flex flex-wrap gap-2 text-xs">
-                <span className="inline-flex items-center px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-medium">
-                  8 of 24 ASSURE controls implemented
+                <span className="inline-flex items-center px-2 py-0.5 rounded bg-green-100 text-green-800 font-medium">
+                  ✓ All 24 ASSURE controls implemented
                 </span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded bg-teal-100 text-teal-800 font-medium">
                   XML extraction format

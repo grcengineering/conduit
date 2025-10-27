@@ -1,0 +1,74 @@
+ACME SAAS SERVICE LEVEL AGREEMENT
+
+Exhibit A - Service Level Agreement
+
+1. AVAILABILITY SLA
+AcmeSaaS commits to 99.95% uptime availability, measured monthly.
+Uptime excludes planned maintenance windows (notified 48 hours in advance).
+
+Measurement Period: Monthly (calendar month)
+Target: 99.95% availability
+Calculation: (Total minutes in month - Downtime minutes) / Total minutes in month
+
+2. INCIDENT RESPONSE TIME SLAs
+
+Critical Incidents (P1):
+- Initial response: 1 hour from incident report
+- Status updates: Every 2 hours until resolution
+- Definition: Complete service outage, data breach, security incident
+
+High Priority Incidents (P2):
+- Initial response: 4 hours from incident report
+- Status updates: Every 8 hours until resolution
+- Definition: Significant service degradation affecting >25% of users
+
+Medium Priority Incidents (P3):
+- Initial response: 24 hours (1 business day)
+- Definition: Minor service degradation, feature not working
+
+3. INCIDENT RESOLUTION TIME SLAs
+
+Critical Incidents (P1): Target resolution within 8 hours
+High Priority Incidents (P2): Target resolution within 48 hours
+Medium Priority Incidents (P3): Target resolution within 5 business days
+
+4. SLA VIOLATION REMEDIES
+
+If AcmeSaaS fails to meet the Availability SLA in any calendar month,
+Customer is eligible for service credits as follows:
+
+- 99.50% to 99.94% uptime: 10% service credit
+- 99.00% to 99.49% uptime: 25% service credit
+- Below 99.00% uptime: 50% service credit
+
+Service credits capped at 50% of monthly subscription fees.
+
+Customer must request credits within 30 days of month end. Credits applied to next invoice.
+
+5. SLA MONITORING AND REPORTING
+
+AcmeSaaS provides real-time status dashboard at status.acmesaas.com.
+Monthly SLA reports available in customer portal by 5th business day of following month.
+
+SLA reports include:
+- Actual uptime percentage
+- Incident count by severity
+- Response time metrics (P1/P2/P3)
+- Resolution time metrics
+- Any applicable service credits
+
+6. EXCLUSIONS
+
+SLAs do not apply to downtime caused by:
+- Customer's network, systems, or applications
+- Third-party service failures (e.g., AWS, internet providers)
+- Force majeure events
+- Scheduled maintenance (with 48-hour notice)
+- Customer-requested changes or upgrades
+- DDoS attacks or other malicious activity targeting Customer
+
+7. SLA REVIEW
+
+SLAs reviewed annually. AcmeSaaS may propose improvements based on industry standards.
+
+This SLA is part of the Master Service Agreement dated January 1, 2025.

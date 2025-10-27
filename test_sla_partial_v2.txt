@@ -1,0 +1,26 @@
+DATAFLOW INC SERVICE TERMS
+
+Section 8: Service Levels
+
+8.1 Availability
+DataFlow Inc commits to 99.9% uptime for the Service, calculated quarterly.
+
+8.2 Support Response Times
+Our support team responds to customer inquiries within these timeframes:
+- Critical issues: Within 8 business hours
+- High priority issues: Within 24 business hours
+
+8.3 Incident Resolution
+We aim to resolve critical incidents within 72 hours and high-priority incidents within 1 week.
+
+8.4 Service Monitoring
+Customers can view service status at status.dataflow.com.
+We post updates during major incidents.
+
+8.5 Financial Remedies
+If we fail to meet the 99.9% availability SLA, customers may receive service credits up to 25% of monthly fees. Credits must be requested within 60 days.
+
+8.6 Missing Elements
+Note: We do not currently provide SLA reporting to customers. Response time and resolution time SLAs are internal targets only, not contractual commitments.
+
+These service levels are subject to change with 30 days notice.

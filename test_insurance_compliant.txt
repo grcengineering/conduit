@@ -1,0 +1,88 @@
+ACMESAAS INSURANCE COVERAGE ATTESTATION
+
+Date: October 1, 2025
+
+TO: Enterprise Customers and Prospective Clients
+
+RE: Insurance Coverage Verification
+
+AcmeSaaS maintains comprehensive insurance coverage to protect our customers and operations against cybersecurity incidents, errors & omissions, and other business risks.
+
+CYBER LIABILITY INSURANCE
+
+Carrier: Lloyd's of London (Syndicate 5886)
+Policy Number: CYB-2025-8472944
+Coverage Amount: $10,000,000 (Ten Million USD)
+Policy Period: January 1, 2025 - December 31, 2025
+Coverage Type: Claims-Made
+
+Coverage Includes:
+- Data breach response costs
+- Cyber extortion/ransomware
+- Business interruption losses
+- Network security liability
+- Privacy liability (GDPR, CCPA violations)
+- Regulatory defense costs
+- Notification costs and credit monitoring
+
+ERRORS & OMISSIONS (E&O) INSURANCE
+
+Carrier: AIG Insurance Company
+Policy Number: TEO-2025-9283745
+Coverage Amount: $5,000,000 (Five Million USD)
+Policy Period: January 1, 2025 - December 31, 2025
+Coverage Type: Claims-Made
+
+Coverage Includes:
+- Professional services errors
+- Software defects and failures
+- Negligent acts or omissions
+- Breach of contract claims
+- Economic damages to customers
+
+GENERAL LIABILITY INSURANCE
+
+Carrier: Hartford Insurance Company
+Policy Number: GL-2025-3847562
+Coverage Amount: $2,000,000 per occurrence / $4,000,000 aggregate
+Policy Period: January 1, 2025 - December 31, 2025
+
+UMBRELLA/EXCESS LIABILITY
+
+Carrier: Chubb Insurance
+Policy Number: UMB-2025-5739201
+Coverage Amount: $15,000,000 (Fifteen Million USD)
+Policy Period: January 1, 2025 - December 31, 2025
+
+This umbrella policy provides excess coverage above our primary cyber, E&O, and general liability policies.
+
+CERTIFICATE OF INSURANCE
+
+Certificates of Insurance (COI) are available upon request to qualified customers under NDA.
+COIs will name the requesting customer as an Additional Insured for general liability claims.
+
+To request a COI, contact our legal team at legal@acmesaas.com with:
+- Company name and contact information
+- Purpose of COI request
+- Any specific requirements (e.g., waiver of subrogation)
+
+COIs are typically issued within 5 business days of request.
+
+POLICY UPDATES AND RENEWALS
+
+All insurance policies are renewed annually. AcmeSaaS commits to maintaining minimum coverage levels:
+- Cyber Liability: $10M minimum
+- Errors & Omissions: $5M minimum
+
+Customers will be notified if coverage amounts change or policies are non-renewed.
+
+For questions regarding our insurance coverage, please contact:
+Risk Management Team
+risk@acmesaas.com
+(555) 123-4567
+
+Sincerely,
+
+Sarah Johnson
+Chief Legal Officer & Risk Management
+AcmeSaaS, Inc.

@@ -1,0 +1,43 @@
+{
+  "evidence_type": "assure_024_ai_governance",
+  "vendor_name": "Perplexity AI",
+  "evidence_date": "2025-10-24",
+  "soc2_section_4_criteria": [],
+  "soc2_coverage_percentage": 0,
+  "extraction_confidence": 0.6,
+  "source_document": null,
+  "ai_systems_used": true,
+  "ai_inventory_maintained": false,
+  "ai_use_cases": [
+    "content_generation"
+  ],
+  "ai_use_case_descriptions": "Text Generation and Information Retrieval Services",
+  "ai_risk_assessment_performed": true,
+  "highest_ai_risk_level": "medium",
+  "ai_risk_framework_used": null,
+  "training_data_governance_exists": false,
+  "training_data_provenance_tracked": false,
+  "training_data_quality_validated": false,
+  "customer_data_used_for_training": false,
+  "customer_data_training_opt_out": false,
+  "model_validation_performed": false,
+  "bias_testing_performed": false,
+  "bias_testing_frequency": null,
+  "accuracy_metrics_tracked": false,
+  "explainability_provided": false,
+  "model_cards_published": false,
+  "ai_transparency_report": false,
+  "human_oversight_exists": true,
+  "human_review_for_critical_decisions": false,
+  "ai_decision_appeal_process": false,
+  "adversarial_testing_performed": true,
+  "red_team_testing_performed": false,
+  "ai_incident_response_plan": true,
+  "ai_incident_monitoring": true,
+  "third_party_ai_models_used": true,
+  "third_party_ai_risk_assessed": true,
+  "third_party_ai_vendors": [
+    "OpenAI",
+    "Microsoft Azure"
+  ]
+}

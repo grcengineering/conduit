@@ -1,0 +1,23 @@
+{
+  "evidence_type": "assure_021_insurance",
+  "vendor_name": "AcmeSaaS",
+  "evidence_date": "2025-10-24",
+  "soc2_section_4_criteria": [],
+  "soc2_coverage_percentage": 0,
+  "extraction_confidence": 0.98,
+  "source_document": null,
+  "cyber_insurance_exists": true,
+  "cyber_insurance_carrier": "Lloyd's of London (Syndicate 5886)",
+  "cyber_coverage_amount": 10000000,
+  "cyber_policy_number": "CYB-2025-8472944",
+  "cyber_policy_expiry_date": "2025-12-31",
+  "eo_insurance_exists": true,
+  "eo_insurance_carrier": "AIG Insurance Company",
+  "eo_coverage_amount": 5000000,
+  "eo_policy_expiry_date": "2025-12-31",
+  "combined_coverage_amount": 37000000,
+  "certificate_of_insurance_available": true,
+  "certificate_provided_to_customer": false,
+  "customer_named_as_additional_insured": true,
+  "policy_is_current": true
+}

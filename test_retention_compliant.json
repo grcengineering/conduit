@@ -1,0 +1,31 @@
+{
+  "evidence_type": "assure_020_data_retention",
+  "vendor_name": "CloudStore Pro",
+  "evidence_date": "2025-10-24",
+  "soc2_section_4_criteria": [],
+  "soc2_coverage_percentage": 0,
+  "extraction_confidence": 0.98,
+  "source_document": null,
+  "retention_policy_documented": true,
+  "retention_policy_location": "Data Processing Agreement (DPA), Exhibit B",
+  "retention_policy_last_updated": "2025-10-01",
+  "retention_periods_defined": true,
+  "default_retention_period_days": 30,
+  "customer_data_retention_days": 30,
+  "log_data_retention_days": 390,
+  "backup_data_retention_days": 90,
+  "deletion_process_documented": true,
+  "deletion_on_request_supported": true,
+  "deletion_request_timeframe_days": 30,
+  "deletion_method": null,
+  "deletion_verification_available": true,
+  "deletion_certificate_provided": true,
+  "backups_included_in_deletion": true,
+  "backup_deletion_timeframe_days": null,
+  "gdpr_compliant": true,
+  "ccpa_compliant": true,
+  "data_subject_rights_supported": [
+    "right_to_erasure",
+    "right_to_access"
+  ]
+}
